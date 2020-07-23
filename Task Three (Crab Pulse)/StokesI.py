@@ -1,4 +1,4 @@
-#! usr/bin/python3
+#!/usr/bin/python
 
 
 import numpy as np
@@ -18,18 +18,18 @@ file2 = np.fromfile(file2, dtype=np.int8)
 file3 = np.fromfile(file3, dtype=np.int8)
 I = np.empty_like(file0, dtype=np.int32)
 
-#chunksize=16000000
-#for i in range(256):
- #   I[i*chunksize:(i+1)*chunksize] =(np.square(file0[i * chunksize: (i+1) * chunksize].astype(np.int32)) + np.square(file1[i * chunksize: (i+1) * chunksize].astype(np.int32)) + np.square(file2[i * chun$
-  #  np.square(file3[i * chunksize: (i+1) * chunksize].astype(np.int32)))
-
-chunksize=250000
-for i in range(32):
-   I[i*chunksize:(i+1)*chunksize,:] =(
-   np.square(file0 [i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
-   np.square(file1 [i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
-   np.square(file2 [i * chunksize: (i+1) * chunksize, :].astype(np.int32)) +
-   np.square(file3 [i * chunksize: (i+1) * chunksize, :].astype(np.int32)))
+chunksize = 488 * 8
+#chunksize=int(I.size / 256)
+for i in range(256):
+    I[i*chunksize:(i+1)*chunksize] =(
+    np.square(file0[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
+    np.square(file1[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
+    np.square(file2[i * chunksize: (i+1) * chunksize].astype(np.int32)) +
+    np.square(file3[i * chunksize: (i+1) * chunksize].astype(np.int32)))
 
 
-I.tofile("I.fil", format="%f")
+
+I.astype(np.float32).tofile("I.fil", format="%f")
+
+
+
